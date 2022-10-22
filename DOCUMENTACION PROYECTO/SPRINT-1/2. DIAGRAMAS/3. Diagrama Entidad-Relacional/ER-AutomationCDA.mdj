@@ -966,9 +966,9 @@
 											"font": "Arial;13;1",
 											"left": 56,
 											"top": 141,
-											"width": 149.89453125,
+											"width": 150.62451171875,
 											"height": 13,
-											"text": "Usuario_Vehiculo"
+											"text": "UsuarioVehiculo"
 										},
 										{
 											"_type": "ERDColumnCompartmentView",
@@ -982,6 +982,21 @@
 											"subViews": [
 												{
 													"_type": "ERDColumnView",
+													"_id": "AAAAAAGEAGmwGyiP+5I=",
+													"_parent": {
+														"$ref": "AAAAAAGD93FQvhr8SaI="
+													},
+													"model": {
+														"$ref": "AAAAAAGEAGmwBCiMusg="
+													},
+													"font": "Arial;13;0",
+													"left": 61,
+													"top": 164,
+													"width": 140.62451171875,
+													"height": 13
+												},
+												{
+													"_type": "ERDColumnView",
 													"_id": "AAAAAAGD93HPzRsJ2P0=",
 													"_parent": {
 														"$ref": "AAAAAAGD93FQvhr8SaI="
@@ -991,8 +1006,8 @@
 													},
 													"font": "Arial;13;0",
 													"left": 61,
-													"top": 164,
-													"width": 139.89453125,
+													"top": 179,
+													"width": 140.62451171875,
 													"height": 13
 												},
 												{
@@ -1006,23 +1021,23 @@
 													},
 													"font": "Arial;13;0",
 													"left": 61,
-													"top": 179,
-													"width": 139.89453125,
+													"top": 194,
+													"width": 140.62451171875,
 													"height": 13
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 56,
 											"top": 159,
-											"width": 149.89453125,
-											"height": 38
+											"width": 150.62451171875,
+											"height": 53
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 56,
 									"top": 136,
-									"width": 149.89453125,
-									"height": 61,
+									"width": 150.62451171875,
+									"height": 76,
 									"nameLabel": {
 										"$ref": "AAAAAAGD93FQvhr7WPc="
 									},
@@ -1049,9 +1064,9 @@
 											"font": "Arial;13;1",
 											"left": 24,
 											"top": 485,
-											"width": 199.7236328125,
+											"width": 200.45361328125,
 											"height": 13,
-											"text": "Vehiculo_SeguroAdicional"
+											"text": "VehiculoSeguroAdicional"
 										},
 										{
 											"_type": "ERDColumnCompartmentView",
@@ -1065,6 +1080,21 @@
 											"subViews": [
 												{
 													"_type": "ERDColumnView",
+													"_id": "AAAAAAGEAGpCUSiZqZU=",
+													"_parent": {
+														"$ref": "AAAAAAGD93Y0ohsi1vI="
+													},
+													"model": {
+														"$ref": "AAAAAAGEAGpCRCiWvu4="
+													},
+													"font": "Arial;13;0",
+													"left": 29,
+													"top": 508,
+													"width": 190.45361328125,
+													"height": 13
+												},
+												{
+													"_type": "ERDColumnView",
 													"_id": "AAAAAAGD93aeJhswLQI=",
 													"_parent": {
 														"$ref": "AAAAAAGD93Y0ohsi1vI="
@@ -1074,8 +1104,8 @@
 													},
 													"font": "Arial;13;0",
 													"left": 29,
-													"top": 508,
-													"width": 189.7236328125,
+													"top": 523,
+													"width": 190.45361328125,
 													"height": 13
 												},
 												{
@@ -1089,23 +1119,23 @@
 													},
 													"font": "Arial;13;0",
 													"left": 29,
-													"top": 523,
-													"width": 189.7236328125,
+													"top": 538,
+													"width": 190.45361328125,
 													"height": 13
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 24,
 											"top": 503,
-											"width": 199.7236328125,
-											"height": 38
+											"width": 200.45361328125,
+											"height": 53
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 24,
 									"top": 480,
-									"width": 199.7236328125,
-									"height": 61,
+									"width": 200.45361328125,
+									"height": 76,
 									"nameLabel": {
 										"$ref": "AAAAAAGD93Y0ohshZVw="
 									},
@@ -1132,9 +1162,9 @@
 											"font": "Arial;13;1",
 											"left": 624,
 											"top": 293,
-											"width": 155.66455078125,
+											"width": 156.39453125,
 											"height": 13,
-											"text": "Revision_Repuesto"
+											"text": "RevisionRepuesto"
 										},
 										{
 											"_type": "ERDColumnCompartmentView",
@@ -1148,6 +1178,21 @@
 											"subViews": [
 												{
 													"_type": "ERDColumnView",
+													"_id": "AAAAAAGEAGqw4CijTRQ=",
+													"_parent": {
+														"$ref": "AAAAAAGD93lRnxtPpCY="
+													},
+													"model": {
+														"$ref": "AAAAAAGEAGqwwiigHRQ="
+													},
+													"font": "Arial;13;0",
+													"left": 629,
+													"top": 316,
+													"width": 146.39453125,
+													"height": 13
+												},
+												{
+													"_type": "ERDColumnView",
 													"_id": "AAAAAAGD93mKRBtbE+s=",
 													"_parent": {
 														"$ref": "AAAAAAGD93lRnxtPpCY="
@@ -1157,8 +1202,8 @@
 													},
 													"font": "Arial;13;0",
 													"left": 629,
-													"top": 316,
-													"width": 145.66455078125,
+													"top": 331,
+													"width": 146.39453125,
 													"height": 13
 												},
 												{
@@ -1172,23 +1217,23 @@
 													},
 													"font": "Arial;13;0",
 													"left": 629,
-													"top": 331,
-													"width": 145.66455078125,
+													"top": 346,
+													"width": 146.39453125,
 													"height": 13
 												}
 											],
 											"font": "Arial;13;0",
 											"left": 624,
 											"top": 311,
-											"width": 155.66455078125,
-											"height": 38
+											"width": 156.39453125,
+											"height": 53
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 624,
 									"top": 288,
-									"width": 155.66455078125,
-									"height": 61,
+									"width": 156.39453125,
+									"height": 76,
 									"nameLabel": {
 										"$ref": "AAAAAAGD93lRnxtOGgs="
 									},
@@ -1215,7 +1260,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 113,
-											"top": 219,
+											"top": 226,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -1249,7 +1294,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 113,
-											"top": 215,
+											"top": 230,
 											"height": 13,
 											"alpha": -0.5235987755982988,
 											"distance": 30,
@@ -1266,7 +1311,7 @@
 										"$ref": "AAAAAAGD90kS+xlwsvA="
 									},
 									"lineStyle": 2,
-									"points": "128:256;128:196",
+									"points": "128:256;128:211",
 									"nameLabel": {
 										"$ref": "AAAAAAGD93r8kBuJ4/k="
 									},
@@ -1295,7 +1340,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 265,
+											"left": 266,
 											"top": 177,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -1329,7 +1374,7 @@
 												"$ref": "AAAAAAGD93/Cihu59WQ="
 											},
 											"font": "Arial;13;0",
-											"left": 230,
+											"left": 231,
 											"top": 176,
 											"height": 13,
 											"alpha": -0.5235987755982988,
@@ -1347,7 +1392,7 @@
 										"$ref": "AAAAAAGD90T6gRkcx+M="
 									},
 									"lineStyle": 2,
-									"points": "328:168;205:168",
+									"points": "328:168;206:168",
 									"nameLabel": {
 										"$ref": "AAAAAAGD93/Cihu6D/I="
 									},
@@ -1701,7 +1746,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 710,
-											"top": 399,
+											"top": 406,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -1718,7 +1763,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 711,
-											"top": 367,
+											"top": 382,
 											"height": 13,
 											"alpha": 0.5235987755982988,
 											"distance": 30,
@@ -1752,7 +1797,7 @@
 										"$ref": "AAAAAAGD93lRnxtNjNw="
 									},
 									"lineStyle": 2,
-									"points": "696:348;696:464",
+									"points": "696:363;696:464",
 									"nameLabel": {
 										"$ref": "AAAAAAGD946qfRxLkv4="
 									},
@@ -2744,8 +2789,19 @@
 							"_parent": {
 								"$ref": "AAAAAAGD90BiXBjPwwc="
 							},
-							"name": "Usuario_Vehiculo",
+							"name": "UsuarioVehiculo",
 							"columns": [
+								{
+									"_type": "ERDColumn",
+									"_id": "AAAAAAGEAGmwBCiMusg=",
+									"_parent": {
+										"$ref": "AAAAAAGD93FQvRr4VhA="
+									},
+									"name": "_id",
+									"type": "String",
+									"length": 0,
+									"primaryKey": true
+								},
 								{
 									"_type": "ERDColumn",
 									"_id": "AAAAAAGD93HPvRsGy/o=",
@@ -2776,7 +2832,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGD90BiXBjPwwc="
 							},
-							"name": "Vehiculo_SeguroAdicional",
+							"name": "VehiculoSeguroAdicional",
 							"ownedElements": [
 								{
 									"_type": "ERDRelationship",
@@ -2838,6 +2894,17 @@
 							"columns": [
 								{
 									"_type": "ERDColumn",
+									"_id": "AAAAAAGEAGpCRCiWvu4=",
+									"_parent": {
+										"$ref": "AAAAAAGD93Y0ohsel7M="
+									},
+									"name": "_id",
+									"type": "String",
+									"length": 0,
+									"primaryKey": true
+								},
+								{
+									"_type": "ERDColumn",
 									"_id": "AAAAAAGD93aeDRst7IQ=",
 									"_parent": {
 										"$ref": "AAAAAAGD93Y0ohsel7M="
@@ -2866,7 +2933,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGD90BiXBjPwwc="
 							},
-							"name": "Revision_Repuesto",
+							"name": "RevisionRepuesto",
 							"ownedElements": [
 								{
 									"_type": "ERDRelationship",
@@ -2926,6 +2993,17 @@
 								}
 							],
 							"columns": [
+								{
+									"_type": "ERDColumn",
+									"_id": "AAAAAAGEAGqwwiigHRQ=",
+									"_parent": {
+										"$ref": "AAAAAAGD93lRnxtLg1Y="
+									},
+									"name": "_id",
+									"type": "String",
+									"length": 0,
+									"primaryKey": true
+								},
 								{
 									"_type": "ERDColumn",
 									"_id": "AAAAAAGD93mKMBtYZCA=",
