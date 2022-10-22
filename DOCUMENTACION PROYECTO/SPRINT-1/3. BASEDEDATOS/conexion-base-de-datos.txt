@@ -1,4 +1,4 @@
-cadena de conexion: "mongodb+srv://admin-AutomationCDA:cda12345@cluster-automationcda.mongodb.net/AutomationCDA"
+cadena de conexion a base de datos: "mongodb+srv://admin-AutomationCDA:cda12345@cluster-automationcda.mongodb.net/AutomationCDA"
 
 Usuario: admin-AutomationCDA
 
