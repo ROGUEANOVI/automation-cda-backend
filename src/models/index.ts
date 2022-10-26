@@ -8,3 +8,4 @@ export * from './seguro-adicional.model';
 export * from './revision.model';
 export * from './revision-repuesto.model';
 export * from './repuesto.model';
+export * from './credenciales.model';

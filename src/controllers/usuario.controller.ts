@@ -1,30 +1,92 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, HttpErrors, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
-import {Usuario} from '../models';
+import {Credenciales, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
+import {AutenticacionService} from '../services';
+
 
 export class UsuarioController {
   constructor(
     @repository(UsuarioRepository)
     public usuarioRepository : UsuarioRepository,
+    @service(AutenticacionService)
+    public autenticacionService: AutenticacionService
   ) {}
+
+
+  @post('/validacion-usuarios')
+  @response(200, {
+    description: 'Validacion de Usuario'
+  })
+  async validarUsuario(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(Credenciales, {partial: true}),
+        },
+      },
+    })
+    credenciales: Credenciales,
+  ): Promise<object | undefined> {
+    const usuarioValidado = await this.usuarioRepository.findOne({where:{nombreUsuario: credenciales._nombreUsuario}});
+    if (usuarioValidado) {
+      const claveDesencriptada = this.autenticacionService.desencriptarClave(usuarioValidado!.clave);
+      if(credenciales._clave === claveDesencriptada){
+        const token = this.autenticacionService.crearToken(usuarioValidado!);
+        usuarioValidado!.clave = "";
+        return {
+          datosUsuario: usuarioValidado,
+          token
+        };
+      }
+      else{
+        throw new HttpErrors[401]("Nombre de Usuario o clave incorrecto(a)");
+      }
+    }
+    else{
+      throw new HttpErrors[401]("Nombre de Usuario o clave incorrecto(a)");
+    }
+  }
+
+  @post('/registro-usuarios')
+  @response(200, {
+    description: 'Registro de Usuario',
+    content: {'application/json': {schema: getModelSchemaRef(Usuario)}},
+  })
+  async registrarUsuario(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(Usuario, {
+            title: 'NewUsuario',
+            exclude: ['_id'],
+          }),
+        },
+      },
+    })
+    usuario: Omit<Usuario, '_id'>,
+  ): Promise<object> {
+    usuario.clave = this.autenticacionService.encriptarClave(usuario.clave);
+    const usuarioRegistrado = await this.usuarioRepository.create(usuario);
+    const token = this.autenticacionService.crearToken(usuarioRegistrado);
+    usuarioRegistrado.clave = "";
+    return {
+      datosUsuario: usuarioRegistrado,
+      token
+    };
+  }
 
   @post('/usuarios')
   @response(200, {
@@ -44,6 +106,7 @@ export class UsuarioController {
     })
     usuario: Omit<Usuario, '_id'>,
   ): Promise<Usuario> {
+    usuario.clave = this.autenticacionService.encriptarClave(usuario.clave);
     return this.usuarioRepository.create(usuario);
   }
 
@@ -137,6 +200,7 @@ export class UsuarioController {
     @param.path.string('id') id: string,
     @requestBody() usuario: Usuario,
   ): Promise<void> {
+    usuario.clave = this.autenticacionService.encriptarClave(usuario.clave);
     await this.usuarioRepository.replaceById(id, usuario);
   }
 
