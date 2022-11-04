@@ -3,10 +3,10 @@ import {repository} from '@loopback/repository';
 import cryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
 import generadorClave from 'password-generator';
-import {Claves} from '../config/claves';
+import twilio from 'twilio';
+import {Environment} from '../config/environment';
 import {Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
-
 
 
 @injectable({scope: BindingScope.TRANSIENT})
@@ -14,18 +14,20 @@ export class AutenticacionService {
   constructor(@repository(UsuarioRepository)
   public usuarioRepository: UsuarioRepository,) {}
 
+  MSM: string;
+
   generarClave(){
     const clave = generadorClave(12, false);
     return clave;
   }
 
   encriptarClave(clave: string){
-    const claveEncriptada = cryptoJS.AES.encrypt(clave,  Claves.claveSecreta).toString();
+    const claveEncriptada = cryptoJS.AES.encrypt(clave,  Environment.claveSecreta).toString();
     return claveEncriptada;
   }
 
   desencriptarClave(claveEncriptada: string){
-    const bytes = cryptoJS.AES.decrypt(claveEncriptada, Claves.claveSecreta);
+    const bytes = cryptoJS.AES.decrypt(claveEncriptada, Environment.claveSecreta);
     const claveDesencriptada =(bytes.toString(cryptoJS.enc.Utf8));
     return claveDesencriptada;
   }
@@ -61,7 +63,7 @@ export class AutenticacionService {
           _nombreUsuario: usuario.nombreUsuario,
           _clave: usuario.clave,
         }
-      }, Claves.jwtClaveSecreta,
+      }, Environment.jwtClaveSecreta,
       {expiresIn: 60}
     );
     return token;
@@ -69,12 +71,28 @@ export class AutenticacionService {
 
   validarToken(token: string){
     try {
-      const res =jwt.verify(token, Claves.jwtClaveSecreta);
+      const res =jwt.verify(token, Environment.jwtClaveSecreta);
       return res;
     }
     catch (error) {
       return false;
     }
+  }
+
+  async enviarSMS( mensaje : string){
+
+    const client = twilio(Environment.accountSid, Environment.authToken);
+
+    await client.messages.create({
+      body: mensaje,
+      from: Environment.numberTwilio,
+      to: Environment.numberDestination
+    }).then((message) => {
+      console.log(message.body);
+      this.MSM = message.body;
+    });
+
+    return this.MSM;
   }
 
 }
