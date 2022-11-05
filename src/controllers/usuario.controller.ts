@@ -41,7 +41,7 @@ export class UsuarioController {
   async validarUsuario(
     @requestBody() credenciales: Credenciales
   ) {
-    const usuarioValidado = await this.autenticacionService.validarUsuario(credenciales._nombreUsuario, credenciales._clave);
+    const usuarioValidado = await this.autenticacionService.validarUsuariLogin(credenciales._nombreUsuario, credenciales._clave);
     if (usuarioValidado) {
       const token = this.autenticacionService.generarToken(usuarioValidado);
       const SMS = await this.autenticacionService.enviarSMS(`El usuario ${usuarioValidado.nombreUsuario} ha iniciado sesión`);
@@ -74,17 +74,30 @@ export class UsuarioController {
       },
     })
     usuario: Omit<Usuario, '_id'>,
-  ): Promise<object> {
-    usuario.clave = this.autenticacionService.encriptarClave(usuario.clave);
-    const usuarioRegistrado = await this.usuarioRepository.create(usuario);
-    const token = this.autenticacionService.generarToken(usuarioRegistrado);
-    const SMS = await this.autenticacionService.enviarSMS(`El usuario ${usuarioRegistrado.nombreUsuario} se ha registrado`);
-    usuarioRegistrado.clave = '';
-    return {
-      datosUsuario: usuarioRegistrado,
-      SMS: SMS,
-      token,
-    };
+  ) {
+    const usuarioExistente = await this.autenticacionService.validarUsuarioSignUp(usuario.nombreUsuario, usuario.clave);
+    console.log(usuarioExistente);
+
+    if(usuarioExistente){
+      return {
+        nombreUsuario: usuarioExistente.nombreUsuario,
+        mensaje: "Este nombre de usuario ya esta en uso"
+      }
+    }
+    else{
+
+      usuario.clave = this.autenticacionService.encriptarClave(usuario.clave);
+      const usuarioRegistrado = await this.usuarioRepository.create(usuario);
+      const token = this.autenticacionService.generarToken(usuarioRegistrado);
+      const SMS = await this.autenticacionService.enviarSMS(`El usuario ${usuarioRegistrado.nombreUsuario} se ha registrado`);
+      usuarioRegistrado.clave = '';
+      return {
+        datosUsuario: usuarioRegistrado,
+        SMS: SMS,
+        token,
+      };
+    }
+
   }
 
   @post('/usuarios')
@@ -104,9 +117,21 @@ export class UsuarioController {
       },
     })
     usuario: Omit<Usuario, '_id'>,
-  ): Promise<Usuario> {
-    usuario.clave = this.autenticacionService.encriptarClave(usuario.clave);
-    return this.usuarioRepository.create(usuario);
+  ) {
+    const usuarioExistente = await this.autenticacionService.validarUsuarioSignUp(usuario.nombreUsuario, usuario.clave);
+    console.log(usuarioExistente);
+
+    if(usuarioExistente){
+      return {
+        nombreUsuario: usuarioExistente.nombreUsuario,
+        mensaje: "Este nombre de usuario ya esta en uso"
+      }
+    }
+    else{
+      usuario.clave = this.autenticacionService.encriptarClave(usuario.clave);
+      return this.usuarioRepository.create(usuario);
+    }
+
   }
 
   @get('/usuarios/count')

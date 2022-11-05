@@ -6,15 +6,37 @@ import generadorClave from 'password-generator';
 import twilio from 'twilio';
 import {Environment} from '../config/environment';
 import {Usuario} from '../models';
-import {UsuarioRepository} from '../repositories';
+import {PersonaRepository, UsuarioRepository} from '../repositories';
 
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class AutenticacionService {
-  constructor(@repository(UsuarioRepository)
-  public usuarioRepository: UsuarioRepository,) {}
+  constructor(
+    @repository(UsuarioRepository)
+    public usuarioRepository: UsuarioRepository,
+    @repository(PersonaRepository)
+    public personaRepository: PersonaRepository) {
+
+  }
 
   MSM: string;
+
+
+  async validarPersona(_cedula: string){
+
+    const personaValida = await this.personaRepository.findOne({where: {cedula: _cedula}});
+
+    try {
+      if(personaValida !== null){
+        return true
+      }
+      return false
+    }
+    catch (error) {
+      return false;
+    }
+
+  }
 
   generarClave(){
     const clave = generadorClave(12, false);
@@ -32,7 +54,24 @@ export class AutenticacionService {
     return claveDesencriptada;
   }
 
-  async validarUsuario(_nombreUsuario: string, _clave: string){
+  async validarUsuarioSignUp(_nombreUsuario: string, _clave: string){
+
+    const usuarioValido = await this.usuarioRepository.findOne({where: {nombreUsuario: _nombreUsuario}});
+
+    try {
+      if (usuarioValido !== null) {
+        return usuarioValido;
+      }
+      else {
+        return false;
+      }
+    }
+    catch (error) {
+      return false;
+    }
+  }
+
+  async validarUsuariLogin(_nombreUsuario: string, _clave: string){
 
     const usuarioValido = await this.usuarioRepository.findOne({where: {nombreUsuario: _nombreUsuario}});
 

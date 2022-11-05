@@ -1,29 +1,27 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Persona} from '../models';
 import {PersonaRepository} from '../repositories';
+import {AutenticacionService} from '../services';
 
 export class PersonaController {
   constructor(
     @repository(PersonaRepository)
     public personaRepository : PersonaRepository,
+    @service(AutenticacionService)
+    public autenticacionService: AutenticacionService
   ) {}
 
   @post('/personas')
@@ -43,8 +41,17 @@ export class PersonaController {
       },
     })
     persona: Omit<Persona, '_id'>,
-  ): Promise<Persona> {
-    return this.personaRepository.create(persona);
+  ): Promise<Persona | undefined | object> {
+    const personaExistente = await this.autenticacionService.validarPersona(persona.cedula);
+    if (!personaExistente) {
+      const personaRegistrada = this.personaRepository.create(persona);
+      return personaRegistrada;
+    }
+    else {
+      return {
+        cedula: persona.cedula
+      }
+    }
   }
 
   @get('/personas/count')
