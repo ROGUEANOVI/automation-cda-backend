@@ -2,12 +2,12 @@ import { /* inject, */ BindingScope, injectable} from '@loopback/core';
 import {repository} from '@loopback/repository';
 import cryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
+import nodemailer from "nodemailer";
 import generadorClave from 'password-generator';
 import twilio from 'twilio';
 import {Environment} from '../config/environment';
 import {Usuario} from '../models';
 import {PersonaRepository, UsuarioRepository} from '../repositories';
-
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class AutenticacionService {
@@ -20,7 +20,7 @@ export class AutenticacionService {
   }
 
   MSM: string;
-
+  client = twilio(Environment.accountSid, Environment.authToken);
 
   async validarPersona(_cedula: string){
 
@@ -120,9 +120,7 @@ export class AutenticacionService {
 
   async enviarSMS( mensaje : string){
 
-    const client = twilio(Environment.accountSid, Environment.authToken);
-
-    await client.messages.create({
+    await this.client.messages.create({
       body: mensaje,
       from: Environment.numberTwilio,
       to: Environment.numberDestination
@@ -132,6 +130,43 @@ export class AutenticacionService {
     });
 
     return this.MSM;
+  }
+
+  async enviarCorreo(){
+
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: Environment.correoEnvio, // generated ethereal user
+        pass: Environment.claveEnvio, // generated ethereal password
+      },
+    });
+
+    transporter.verify()
+      .then(() => {
+      console.log("Correo enviado con exito");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+    try {
+      const email = await transporter.sendMail({
+        from: `<${Environment.correoEnvio}>`,
+        to: Environment.correoDestino,
+        subject: "Autorizacion de Usuario ✔",
+        html: `
+          <b> Se ha registrado o  ha inciado sesión <strong>¡exitosamente!</strong></b>
+        `, // html body
+      });
+
+      return email.accepted;
+    }
+    catch (error) {
+      return {error}
+    }
   }
 
 }
