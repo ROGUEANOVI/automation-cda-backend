@@ -1,4 +1,4 @@
-import {authenticate} from '@loopback/authentication';
+// import {authenticate} from '@loopback/authentication';
 import {service} from '@loopback/core';
 import {
   Count,
