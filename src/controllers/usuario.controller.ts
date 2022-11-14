@@ -23,7 +23,7 @@ import {UsuarioRepository} from '../repositories';
 import {AutenticacionService} from '../services';
 
 
-@authenticate('auxiliar')
+// @authenticate('auxiliar')
 export class UsuarioController {
 
   constructor(
@@ -33,7 +33,7 @@ export class UsuarioController {
     public autenticacionService: AutenticacionService,
   ) {}
 
-  @authenticate.skip()
+  // @authenticate.skip()
   @post('/usuarios-validacion')
   @response(200, {
     description: 'Validacion de Usuario',
@@ -58,7 +58,7 @@ export class UsuarioController {
     }
   }
 
-  @authenticate.skip()
+  // @authenticate.skip()
   @post('/usuarios-registro')
   @response(200, {
     description: 'Registro de Usuario',
