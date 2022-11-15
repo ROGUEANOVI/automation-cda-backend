@@ -163,7 +163,13 @@ export class UsuarioController {
   async find(
     @param.filter(Usuario) filter?: Filter<Usuario>,
   ): Promise<Usuario[]> {
-    return this.usuarioRepository.find(filter);
+    // return this.usuarioRepository.find(filter);
+    const listUsuarios = this.usuarioRepository.find(filter);
+    const listUsuariosEncriptados = (await listUsuarios).map((usuario) => {
+      usuario.clave = this.autenticacionService.desencriptarClave(usuario.clave)
+      return usuario
+    });
+    return listUsuariosEncriptados;
   }
 
   @patch('/usuarios')
