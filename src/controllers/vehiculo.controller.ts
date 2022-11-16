@@ -1,30 +1,28 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Vehiculo} from '../models';
 import {VehiculoRepository} from '../repositories';
+import {AutenticacionService} from '../services';
 
 export class VehiculoController {
   constructor(
     @repository(VehiculoRepository)
-    public vehiculoRepository : VehiculoRepository,
-  ) {}
+    public vehiculoRepository: VehiculoRepository,
+    @service(AutenticacionService)
+    public autenticacionService: AutenticacionService
+  ) { }
 
   @post('/vehiculos')
   @response(200, {
@@ -43,8 +41,18 @@ export class VehiculoController {
       },
     })
     vehiculo: Omit<Vehiculo, '_id'>,
-  ): Promise<Vehiculo> {
-    return this.vehiculoRepository.create(vehiculo);
+  ): Promise<Vehiculo | undefined | object> {
+
+    const vehiculoExistente = await this.autenticacionService.validarVehiculo(vehiculo.placa);
+    if (!vehiculoExistente) {
+      const vehiculoRegistrado = this.vehiculoRepository.create(vehiculo);
+      return vehiculoRegistrado;
+    }
+    else {
+      return {
+        cedula: vehiculo.placa
+      }
+    }
   }
 
   @get('/vehiculos/count')
