@@ -7,7 +7,7 @@ import generadorClave from 'password-generator';
 import twilio from 'twilio';
 import {Environment} from '../config/environment';
 import {Usuario} from '../models';
-import {PersonaRepository, UsuarioRepository} from '../repositories';
+import {PersonaRepository, UsuarioRepository, VehiculoRepository} from '../repositories';
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class AutenticacionService {
@@ -15,7 +15,9 @@ export class AutenticacionService {
     @repository(UsuarioRepository)
     public usuarioRepository: UsuarioRepository,
     @repository(PersonaRepository)
-    public personaRepository: PersonaRepository) {
+    public personaRepository: PersonaRepository,
+    @repository(VehiculoRepository)
+    public vehiculoRepository: VehiculoRepository) {
 
   }
 
@@ -28,6 +30,22 @@ export class AutenticacionService {
 
     try {
       if(personaValida !== null){
+        return true
+      }
+      return false
+    }
+    catch (error) {
+      return false;
+    }
+
+  }
+
+  async validarVehiculo(_placa: string){
+
+    const vehiculoValido = await this.vehiculoRepository.findOne({where: {placa: _placa}});
+
+    try {
+      if(vehiculoValido !== null){
         return true
       }
       return false
