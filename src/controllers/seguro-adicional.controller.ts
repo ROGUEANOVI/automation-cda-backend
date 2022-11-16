@@ -20,7 +20,7 @@ export class SeguroAdicionalController {
     public seguroAdicionalRepository : SeguroAdicionalRepository,
   ) {}
 
-  @post('/seguros-adiconales')
+  @post('/seguros-adicinales')
   @response(200, {
     description: 'SeguroAdicional model instance',
     content: {'application/json': {schema: getModelSchemaRef(SeguroAdicional)}},
@@ -41,7 +41,7 @@ export class SeguroAdicionalController {
     return this.seguroAdicionalRepository.create(seguroAdicional);
   }
 
-  @get('/seguros-adiconales/count')
+  @get('/seguros-adicinales/count')
   @response(200, {
     description: 'SeguroAdicional model count',
     content: {'application/json': {schema: CountSchema}},
@@ -52,7 +52,7 @@ export class SeguroAdicionalController {
     return this.seguroAdicionalRepository.count(where);
   }
 
-  @get('/seguros-adiconales')
+  @get('/seguros-adicinales')
   @response(200, {
     description: 'Array of SeguroAdicional model instances',
     content: {
@@ -70,7 +70,7 @@ export class SeguroAdicionalController {
     return this.seguroAdicionalRepository.find(filter);
   }
 
-  @patch('/seguros-adiconales')
+  @patch('/seguros-adicinales')
   @response(200, {
     description: 'SeguroAdicional PATCH success count',
     content: {'application/json': {schema: CountSchema}},
@@ -89,7 +89,7 @@ export class SeguroAdicionalController {
     return this.seguroAdicionalRepository.updateAll(seguroAdicional, where);
   }
 
-  @get('/seguros-adiconales/{id}')
+  @get('/seguros-adicinales/{id}')
   @response(200, {
     description: 'SeguroAdicional model instance',
     content: {
@@ -105,7 +105,7 @@ export class SeguroAdicionalController {
     return this.seguroAdicionalRepository.findById(id, filter);
   }
 
-  @patch('/seguros-adiconales/{id}')
+  @patch('/seguros-adicinales/{id}')
   @response(204, {
     description: 'SeguroAdicional PATCH success',
   })
@@ -123,7 +123,7 @@ export class SeguroAdicionalController {
     await this.seguroAdicionalRepository.updateById(id, seguroAdicional);
   }
 
-  @put('/seguros-adiconales/{id}')
+  @put('/seguros-adicinales/{id}')
   @response(204, {
     description: 'SeguroAdicional PUT success',
   })
@@ -134,7 +134,7 @@ export class SeguroAdicionalController {
     await this.seguroAdicionalRepository.replaceById(id, seguroAdicional);
   }
 
-  @del('/seguros-adiconales/{id}')
+  @del('/seguros-adicinales/{id}')
   @response(204, {
     description: 'SeguroAdicional DELETE success',
   })
