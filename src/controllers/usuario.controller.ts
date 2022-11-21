@@ -44,12 +44,12 @@ export class UsuarioController {
     const usuarioValidado = await this.autenticacionService.validarUsuariLogin(credenciales._nombreUsuario, credenciales._clave);
     if (usuarioValidado) {
       const token = this.autenticacionService.generarToken(usuarioValidado);
-      const SMS = await this.autenticacionService.enviarSMS(`El usuario ${usuarioValidado.nombreUsuario} ha iniciado sesión`);
+//       const SMS = await this.autenticacionService.enviarSMS(`El usuario ${usuarioValidado.nombreUsuario} ha iniciado sesión`);
       const email = await this.autenticacionService.enviarCorreo();
       usuarioValidado.clave = '';
       return {
         datosUsuario: usuarioValidado,
-        SMS: SMS,
+//         SMS: SMS,
         email: email,
         token,
       };
@@ -91,12 +91,12 @@ export class UsuarioController {
       usuario.clave = this.autenticacionService.encriptarClave(usuario.clave);
       const usuarioRegistrado = await this.usuarioRepository.create(usuario);
       const token = this.autenticacionService.generarToken(usuarioRegistrado);
-      const SMS = await this.autenticacionService.enviarSMS(`El usuario ${usuarioRegistrado.nombreUsuario} se ha registrado`);
+//       const SMS = await this.autenticacionService.enviarSMS(`El usuario ${usuarioRegistrado.nombreUsuario} se ha registrado`);
       const email = await this.autenticacionService.enviarCorreo();
       usuarioRegistrado.clave = '';
       return {
         datosUsuario: usuarioRegistrado,
-        SMS: SMS,
+//         SMS: SMS,
         email: email,
         token,
       };
